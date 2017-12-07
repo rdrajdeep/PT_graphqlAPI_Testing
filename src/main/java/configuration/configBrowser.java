@@ -4,20 +4,19 @@ import org.apache.commons.exec.OS;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import utility.configUtil;
+import utility.ConfigUtil;
 
 public class configBrowser {
 
     private static configBrowser config;
     private configBrowser(){}
-    static {
-        config=new configBrowser();
-    }
+    static { config=new configBrowser();   }
+
     public static configBrowser getInstance(){
         return config;
 }
 
-    private String browserName = configUtil.getProperties("Browser");
+    private String browserName = ConfigUtil.getProperties("Browser");
 
     private WebDriver driver;
 
@@ -31,14 +30,17 @@ public class configBrowser {
 
     public void  initiateBrowser( ){
 
+        System.out.println(browserName);
         switch (browserName.toLowerCase()){
             case "chrome":
                     this.launchBrowserByOS();
                     this.setDriver(new ChromeDriver());
+                    driver.manage().window().maximize();
                     break;
             case "firefox":
                     this.launchBrowserByOS();
                     this.setDriver(new FirefoxDriver());
+                    driver.manage().window().maximize();
                     break;
             case "safari":
                     this.launchBrowserByOS();
@@ -50,7 +52,6 @@ public class configBrowser {
 
     public void launchBrowserByOS(){
 
-        System.out.println(OS.isName("Linux"));
 
        if (OS.isFamilyWindows()){
             System.out.println("launching "+browserName+" browser in OS MS Windows");

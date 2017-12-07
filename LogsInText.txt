@@ -1,0 +1,8 @@
+Dec 07, 2017 4:21:52 PM utility.LoggerUtil doSomeThingAndLog
+SEVERE: Info Log 1111
+Dec 07, 2017 4:21:52 PM utility.LoggerUtil doSomeThingAndLog
+SEVERE: Severe damaged
+Dec 07, 2017 4:21:52 PM utility.LoggerUtil doSomeThingAndLog
+WARNING: Warning log
+Dec 07, 2017 4:21:52 PM utility.LoggerUtil doSomeThingAndLog
+INFO: Info Log

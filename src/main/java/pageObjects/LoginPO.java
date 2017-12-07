@@ -1,9 +1,11 @@
 package pageObjects;
 
-public class LoginPO {
+import org.openqa.selenium.By;
 
-    final  String user_name = "*//input[@name=usernameInput]";
-    final String password = "*//input[@name=PasswordInput]";
-    final String btn_login = "*//button[@contains[text()='Log in']] ";
+public  class LoginPO {
+
+    static final By user_name = By.xpath("*//input[@name=usernameInput]");
+    static final String password = "*//input[@name=PasswordInput]";
+    static final String btn_login = "*//button[@contains[text()='Log in']] ";
 
 }
