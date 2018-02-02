@@ -1,15 +1,13 @@
 package utility;
 
-import configuration.configBrowser;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeClass;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.NoSuchElementException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
 
@@ -17,10 +15,7 @@ public class ConfigUtil {
 
     private static Properties properties= new Properties();
     private static FileInputStream fis= null;
-    private WebDriver driver = configBrowser.getInstance().getDriver();
-    private WebElement element;
-
-    //@BeforeClass
+    private Logger logger= Logger.getLogger(ConfigUtil.class);
     public static void setProperties(){
 
         try{
@@ -38,45 +33,24 @@ public class ConfigUtil {
         return properties.getProperty(keyValue);
     }
 
-    public void driverWait(int timeInMili){
+    public void configureLogger(){
 
-       // System.out.println("web driver waiting for element to be found, wait time- "+timeInMili);
-        WebDriverWait wait = new WebDriverWait(driver,timeInMili);
+        DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss:mmm");
+
+        String currentTime=dateFormat.format(new Date());
+
+        System.setProperty("logFileName","log_"+currentTime+".log");
+
+        String log4jConfigFile = System.getProperty("user.dir")+ File.separator + "log4j.properties";
+
+        PropertyConfigurator.configure(log4jConfigFile);
 
     }
 
-    public void explicitlyWait(){
 
-    }
-
-    //@BeforeClass
     public static Set <Object> keySet(){
         setProperties();
         return properties.keySet();
-    }
-
-    public WebElement webElement (By locator){
-
-        try {
-            this.driverWait(1000);
-            element= driver.findElement(locator);
-
-        }catch (NoSuchElementException e){
-            e.printStackTrace();
-        }
-        return element;
-    }
-
-    public void sendTextInField(By locator, String input){
-        try{
-
-            element=this.webElement(locator);
-            element.sendKeys(input);
-
-        }   catch (NoSuchElementException e){
-             e.printStackTrace();
-             System.out.println(e.getMessage());
-        }
     }
 
 }
